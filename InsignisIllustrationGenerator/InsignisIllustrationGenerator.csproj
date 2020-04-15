@@ -1,0 +1,123 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-InsignisIllustrationGenerator-721F131A-7D33-4169-A07E-DDB1A34698ED</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200123103711_IllustrationDetail.cs" />
+    <Compile Remove="Data\Migrations\20200123103711_IllustrationDetail.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200123103818_IllustrationDetail.cs" />
+    <Compile Remove="Data\Migrations\20200123103818_IllustrationDetail.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200205101222_BankDetails.cs" />
+    <Compile Remove="Data\Migrations\20200205101222_BankDetails.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200205113951_ProductBankRelation.cs" />
+    <Compile Remove="Data\Migrations\20200205113951_ProductBankRelation.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200412225304_correctedseeddata.cs" />
+    <Compile Remove="Data\Migrations\20200412225304_correctedseeddata.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200412230247_correctedseeddata1.cs" />
+    <Compile Remove="Data\Migrations\20200412230247_correctedseeddata1.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200412230716_correctedseeddata.cs" />
+    <Compile Remove="Data\Migrations\20200412230716_correctedseeddata.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Web.Debug.config" />
+    <Content Remove="Web.Release.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="app.Debug.config">
+      <DependentUpon>app.config</DependentUpon>
+    </None>
+    <None Include="app.Release.config">
+      <DependentUpon>app.config</DependentUpon>
+    </None>
+    <None Include="wwwroot\font\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\font\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\js\common-js.js" />
+    <None Include="wwwroot\js\jqBootstrapValidation.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\opesansfont\opensans-bold-webfont.woff2" />
+    <None Include="wwwroot\opesansfont\opensans-extrabold-webfont.woff2" />
+    <None Include="wwwroot\opesansfont\opensans-light-webfont.woff2" />
+    <None Include="wwwroot\opesansfont\opensans-regular-webfont.woff2" />
+    <None Include="wwwroot\opesansfont\opensans-semibold-webfont.woff2" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.min--.js" />
+    <None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\vendor\jquery\jquery.min.js" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
+    <PackageReference Include="FreeSpire.Presentation" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Admin\InsignisActionLogging\InsignisActionLogging.csproj" />
+    <ProjectReference Include="..\..\Admin\InsignisPowerPointGenerator\InsignisPowerPointGenerator.csproj" />
+    <ProjectReference Include="..\..\ExternalIllustrator\ExternalIllustrator\ExternalIllustrator.csproj" />
+    <ProjectReference Include="..\..\InsignisConsoleApps\InsignisLoaderConfig\InsignisLoaderConfig.csproj" />
+    <ProjectReference Include="..\InsignisFSCSConfig\InsignisFSCSConfig.csproj" />
+    <ProjectReference Include="..\InsignisHelper\InsignisHelper.csproj" />
+    <ProjectReference Include="..\InsignisIllustratorInterface\InsignisIllustratorInterface.csproj" />
+    <ProjectReference Include="..\InsignisReports\InsignisReports.csproj" />
+    <ProjectReference Include="..\InsignisTools\InsignisTools.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="NabuAbstraction">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuAbstraction.dll</HintPath>
+    </Reference>
+    <Reference Include="NabuDOL">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuDOL.dll</HintPath>
+    </Reference>
+    <Reference Include="NabuEncryption">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuEncryption.dll</HintPath>
+    </Reference>
+    <Reference Include="NabuEntities">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuEntities.dll</HintPath>
+    </Reference>
+    <Reference Include="NabuOfficeInterface">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuOfficeInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="NabuPreferences">
+      <HintPath>bin\Debug\netcoreapp3.0\NabuPreferences.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License">
+      <HintPath>..\..\Admin\InsignisPowerPointGenerator\bin\Debug\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\..\Admin\InsignisPowerPointGenerator\bin\Debug\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Presentation">
+      <HintPath>..\..\Admin\InsignisPowerPointGenerator\bin\Debug\Spire.Presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="app.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+
+</Project>
