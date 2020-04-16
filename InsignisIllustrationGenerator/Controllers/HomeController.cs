@@ -296,14 +296,14 @@ namespace InsignisIllustrationGenerator.Controllers
             HttpContext.Session.Remove("SessionPartner");
             HttpContext.Session.SetString("SessionPartner", JsonConvert.SerializeObject(partnerInfo));
 
+            List<int> excludedInstitutes= _context.ExcludedInstitutes.Where(x => x.SessionId == partnerInfo.SessionId).Select(x => x.InstituteId).ToList();
+            HttpContext.Session.SetString("excludedInstitutes", JsonConvert.SerializeObject(excludedInstitutes));
 
-
-            ViewBag.URL = AppSettings.illustrationOutputPublicFacingFolder + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";
+            ViewBag.URL = AppSettings.illustrationOutputPublicFacingFolder + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
 
             ViewBag.User = "";
             TempData["PreserverSession"] = true;
             return View("_illustrationDetails", result);
-
         }
 
         public IActionResult Calculate(IllustrationDetailViewModel model)
@@ -324,7 +324,6 @@ namespace InsignisIllustrationGenerator.Controllers
             {
                 illustrationInfo = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("SessionPartner"));
                 PreserverSession = true;
-
                 TempData["PreserverSession"] = TempData["PreserverSession"];
             }
 
@@ -395,6 +394,12 @@ namespace InsignisIllustrationGenerator.Controllers
                     }
                 }
 
+                if (PreserverSession)
+                {
+                    model.SessionId = Guid.NewGuid();
+                    HttpContext.Session.Remove("SessionPartner");
+                    HttpContext.Session.SetString("SessionPartner", JsonConvert.SerializeObject(illustrationInfo));
+                }
 
                 HttpContext.Session.SetString("GeneratedPorposals", JsonConvert.SerializeObject(sStore));
                 HttpContext.Session.SetString("InputProposal", JsonConvert.SerializeObject(model));
@@ -954,6 +959,14 @@ namespace InsignisIllustrationGenerator.Controllers
             var illustrationInfo = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("InputProposal"));
             var partnerEmail = JsonConvert.DeserializeObject<IllustrationDetailViewModel>(HttpContext.Session.GetString("InputProposal"));
 
+            List<int> excludedInstitutesIds = new List<int>();
+
+            if (HttpContext.Session.GetString("excludedInstitutes") != null)
+            {
+                excludedInstitutesIds = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("excludedInstitutes"));
+            }
+
+
             if (TempData["AllowEdit"].ToString() == "False" && includeBank != null)
             {
                 ModelState.AddModelError("error", "Please create a new version of this illustration if you need to change the amount.");
@@ -1221,6 +1234,7 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                 //check db for any saved bank
+                if(excludedInstitutesIds.Count == 0) { 
                 bool __savedBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId== partnerEmail.SessionId);
                 if (__savedBank)
                 {
@@ -1240,6 +1254,7 @@ namespace InsignisIllustrationGenerator.Controllers
                         _sStore.ProposedInvestments.Add(row);
                         _model.ProposedPortfolio.ProposedInvestments.Add(row);
                     }
+                }
                 }
 
                 decimal _total = 0;
@@ -1369,6 +1384,7 @@ namespace InsignisIllustrationGenerator.Controllers
             }
 
             //Check if any deposit exists before allotment
+
             bool _savedBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId == partnerEmail.SessionId);
 
 
@@ -1787,6 +1803,9 @@ namespace InsignisIllustrationGenerator.Controllers
 
             var savedexcludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.SessionId == illustrationInfo.SessionId).Select(x => x.InstituteId).ToList();
 
+            //exluded from list
+            
+
             foreach (var childern in institutionInclusion.Children)
             {
                 if (childern.Name != bankId)
@@ -1795,6 +1814,12 @@ namespace InsignisIllustrationGenerator.Controllers
                     childern.Value = "false";
                 if (savedexcludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
                     childern.Value = "false";
+
+                if(excludedInstituteIds.Count > 0)
+                {
+                    if(excludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
+                        childern.Value = "false";
+                }
 
             }
 
@@ -1817,7 +1842,7 @@ namespace InsignisIllustrationGenerator.Controllers
             model.ThreeYearsPlus = illustrationInfo.ThreeYearsPlus;
             model.TwoYears = illustrationInfo.TwoYears;
             model.SessionId = illustrationInfo.SessionId;
-
+            model.TotalDeposit = illustrationInfo.TotalDeposit;
 
             SCurveOutput sStore = new SCurveOutput();
 
