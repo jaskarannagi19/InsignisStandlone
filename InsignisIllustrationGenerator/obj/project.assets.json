@@ -9098,15 +9098,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
-      "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj",
-      "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj",
-      "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj",
-      "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj",
-      "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj",
-      "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj",
-      "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj",
-      "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj",
-      "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj",
       "DocumentFormat.OpenXml >= 2.8.1",
       "FreeSpire.Presentation >= 4.1.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.1",
@@ -9146,35 +9137,7 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {
-            "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj"
-            },
-            "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj"
-            },
-            "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj"
-            },
-            "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj"
-            },
-            "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj"
-            },
-            "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj"
-            },
-            "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj"
-            },
-            "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj"
-            },
-            "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj": {
-              "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -9262,88 +9225,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    }
-  ]
+  }
 }

@@ -940,7 +940,7 @@ namespace InsignisIllustrationGenerator.Controllers
             Insignis.Asset.Management.Reports.Helper.ExtendedReportContent extendedReportContent = powerpointRenderAbstraction.MergeDataWithPowerPointTemplate(prefixName, textReplacements, templateFile.FullName, requiredOutputNameWithoutExtension, true);
             string filename = AppSettings.illustrationOutputInternalFolder + "\\" + prefixName + "\\" + requiredOutputNameWithoutExtension + ".pdf";
 
-            ViewBag.PDF = extendedReportContent.URI;
+            ViewBag.PDF = prefixName;//Illustration(filename);//          extendedReportContent.URI;
             return View();
         }
 
@@ -2068,8 +2068,21 @@ namespace InsignisIllustrationGenerator.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public FileResult Illustration(string uniqueReferenceId)
+        {
+            /*
+             Returns pdf file for illustration with uniqueReferenceId
+             */
+            string requiredOutputNameWithoutExtension = uniqueReferenceId + "_CashIllustration";
+            string filePath = "Output" + "/" + uniqueReferenceId + "/" +  requiredOutputNameWithoutExtension + ".pdf";
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
 
+
+            return File(fileBytes, "application/pdf");
         }
 
     }

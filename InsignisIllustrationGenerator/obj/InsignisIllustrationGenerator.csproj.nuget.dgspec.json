@@ -26,35 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.0": {
-            "projectReferences": {
-              "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Admin\\InsignisActionLogging\\InsignisActionLogging.csproj"
-              },
-              "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Admin\\InsignisPowerPointGenerator\\InsignisPowerPointGenerator.csproj"
-              },
-              "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\ExternalIllustrator\\ExternalIllustrator\\ExternalIllustrator.csproj"
-              },
-              "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\InsignisConsoleApps\\InsignisLoaderConfig\\InsignisLoaderConfig.csproj"
-              },
-              "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisFSCSConfig\\InsignisFSCSConfig.csproj"
-              },
-              "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisHelper\\InsignisHelper.csproj"
-              },
-              "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisIllustratorInterface\\InsignisIllustratorInterface.csproj"
-              },
-              "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisReports\\InsignisReports.csproj"
-              },
-              "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj": {
-                "projectPath": "D:\\InsignisStandlone\\Insignis\\InsignisTools\\InsignisTools.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {

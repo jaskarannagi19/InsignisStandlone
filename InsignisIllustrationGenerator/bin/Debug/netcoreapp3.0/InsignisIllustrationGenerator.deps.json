@@ -26,16 +26,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "DocumentFormat.OpenXml": "2.8.1",
-          "ExternalIllustrator": "1.0.0",
           "FreeSpire.Presentation": "4.1.0",
-          "InsignisActionLogging": "1.0.0",
-          "InsignisFSCSConfig": "1.0.0",
-          "InsignisHelper": "1.0.0",
-          "InsignisIllustratorInterface": "1.0.0",
-          "InsignisLoaderConfig": "1.0.0",
-          "InsignisPowerPointGenerator": "1.0.0",
-          "InsignisReports": "1.0.0",
-          "InsignisTools": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.1",
           "Microsoft.AspNetCore.Identity.UI": "3.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.1",
@@ -46,6 +37,13 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0",
           "System.Configuration.ConfigurationManager": "4.7.0",
           "System.Data.SqlClient": "4.8.0",
+          "InsignisFSCSConfig": "1.0.0.0",
+          "InsignisHelper": "1.0.0.0",
+          "InsignisIllustratorInterface": "1.0.0.0",
+          "InsignisLoaderConfig": "1.0.0.0",
+          "InsignisPowerPointGenerator": "1.0.0.0",
+          "InsignisReports": "1.0.0.0",
+          "InsignisTools": "1.0.0.0",
           "NabuAbstraction": "1.0.0.0",
           "NabuDOL": "1.0.0.0",
           "NabuEncryption": "1.0.0.0",
@@ -2544,95 +2542,78 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "ExternalIllustrator/1.0.0": {
-        "dependencies": {
-          "InsignisFSCSConfig": "1.0.0",
-          "InsignisHelper": "1.0.0",
-          "InsignisPowerPointGenerator": "1.0.0",
-          "InsignisReports": "1.0.0",
-          "InsignisTools": "1.0.0"
-        },
+      "InsignisFSCSConfig/1.0.0.0": {
         "runtime": {
-          "ExternalIllustrator.dll": {}
-        },
-        "compile": {
-          "ExternalIllustrator.dll": {}
-        }
-      },
-      "InsignisActionLogging/1.0.0": {
-        "runtime": {
-          "InsignisActionLogging.dll": {}
-        },
-        "compile": {
-          "InsignisActionLogging.dll": {}
-        }
-      },
-      "InsignisFSCSConfig/1.0.0": {
-        "runtime": {
-          "InsignisFSCSConfig.dll": {}
+          "InsignisFSCSConfig.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisFSCSConfig.dll": {}
         }
       },
-      "InsignisHelper/1.0.0": {
-        "dependencies": {
-          "NabuExtensionsCalendarHelper": "1.0.0.0"
-        },
+      "InsignisHelper/1.0.0.0": {
         "runtime": {
-          "InsignisHelper.dll": {}
+          "InsignisHelper.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisHelper.dll": {}
         }
       },
-      "InsignisIllustratorInterface/1.0.0": {
+      "InsignisIllustratorInterface/1.0.0.0": {
         "runtime": {
-          "InsignisIllustratorInterface.dll": {}
+          "InsignisIllustratorInterface.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisIllustratorInterface.dll": {}
         }
       },
-      "InsignisLoaderConfig/1.0.0": {
+      "InsignisLoaderConfig/1.0.0.0": {
         "runtime": {
-          "InsignisLoaderConfig.dll": {}
+          "InsignisLoaderConfig.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisLoaderConfig.dll": {}
         }
       },
-      "InsignisPowerPointGenerator/1.0.0": {
-        "dependencies": {
-          "InsignisActionLogging": "1.0.0",
-          "InsignisReports": "1.0.0"
-        },
+      "InsignisPowerPointGenerator/1.0.0.0": {
         "runtime": {
-          "InsignisPowerPointGenerator.dll": {}
+          "InsignisPowerPointGenerator.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisPowerPointGenerator.dll": {}
         }
       },
-      "InsignisReports/1.0.0": {
-        "dependencies": {
-          "InsignisHelper": "1.0.0"
-        },
+      "InsignisReports/1.0.0.0": {
         "runtime": {
-          "InsignisReports.dll": {}
+          "InsignisReports.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisReports.dll": {}
         }
       },
-      "InsignisTools/1.0.0": {
-        "dependencies": {
-          "InsignisFSCSConfig": "1.0.0",
-          "InsignisHelper": "1.0.0",
-          "InsignisLoaderConfig": "1.0.0"
-        },
+      "InsignisTools/1.0.0.0": {
         "runtime": {
-          "InsignisTools.dll": {}
+          "InsignisTools.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "InsignisTools.dll": {}
@@ -2704,7 +2685,7 @@
           "NabuPreferences.dll": {}
         }
       },
-      "NabuExtensionsCalendarHelper.Reference/1.0.0.0": {
+      "NabuExtensionsCalendarHelper/1.0.0.0": {
         "runtime": {
           "NabuExtensionsCalendarHelper.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -5472,48 +5453,38 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "ExternalIllustrator/1.0.0": {
-      "type": "project",
+    "InsignisFSCSConfig/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisActionLogging/1.0.0": {
-      "type": "project",
+    "InsignisHelper/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisFSCSConfig/1.0.0": {
-      "type": "project",
+    "InsignisIllustratorInterface/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisHelper/1.0.0": {
-      "type": "project",
+    "InsignisLoaderConfig/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisIllustratorInterface/1.0.0": {
-      "type": "project",
+    "InsignisPowerPointGenerator/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisLoaderConfig/1.0.0": {
-      "type": "project",
+    "InsignisReports/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "InsignisPowerPointGenerator/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "InsignisReports/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "InsignisTools/1.0.0": {
-      "type": "project",
+    "InsignisTools/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
@@ -5547,7 +5518,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "NabuExtensionsCalendarHelper.Reference/1.0.0.0": {
+    "NabuExtensionsCalendarHelper/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

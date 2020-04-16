@@ -71,19 +71,27 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Admin\InsignisActionLogging\InsignisActionLogging.csproj" />
-    <ProjectReference Include="..\..\Admin\InsignisPowerPointGenerator\InsignisPowerPointGenerator.csproj" />
-    <ProjectReference Include="..\..\ExternalIllustrator\ExternalIllustrator\ExternalIllustrator.csproj" />
-    <ProjectReference Include="..\..\InsignisConsoleApps\InsignisLoaderConfig\InsignisLoaderConfig.csproj" />
-    <ProjectReference Include="..\InsignisFSCSConfig\InsignisFSCSConfig.csproj" />
-    <ProjectReference Include="..\InsignisHelper\InsignisHelper.csproj" />
-    <ProjectReference Include="..\InsignisIllustratorInterface\InsignisIllustratorInterface.csproj" />
-    <ProjectReference Include="..\InsignisReports\InsignisReports.csproj" />
-    <ProjectReference Include="..\InsignisTools\InsignisTools.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
+    <Reference Include="InsignisFSCSConfig">
+      <HintPath>bin\ExternalReferences\InsignisTools\InsignisFSCSConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisHelper">
+      <HintPath>bin\ExternalReferences\InsignisTools\InsignisHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisIllustratorInterface">
+      <HintPath>bin\ExternalReferences\InsignisIllustratorInterface\InsignisIllustratorInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisLoaderConfig">
+      <HintPath>bin\ExternalReferences\InsignisTools\InsignisLoaderConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisPowerPointGenerator">
+      <HintPath>bin\ExternalReferences\InsignisPowerPointGenerator\InsignisPowerPointGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisReports">
+      <HintPath>bin\ExternalReferences\InsignisReport\InsignisReports.dll</HintPath>
+    </Reference>
+    <Reference Include="InsignisTools">
+      <HintPath>bin\ExternalReferences\InsignisTools\InsignisTools.dll</HintPath>
+    </Reference>
     <Reference Include="NabuAbstraction">
       <HintPath>bin\Debug\netcoreapp3.0\NabuAbstraction.dll</HintPath>
     </Reference>
@@ -118,6 +126,11 @@
     <Content Update="app.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="InsignisHelpers\" />
   </ItemGroup>
 
 </Project>

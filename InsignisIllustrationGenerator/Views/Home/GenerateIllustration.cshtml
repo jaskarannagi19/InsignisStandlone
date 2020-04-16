@@ -3,11 +3,13 @@
     ViewData["Title"] = "GenerateIllustration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+  
 <div class="middle-section">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-12 col-sm-12">
-                <embed src="@ViewBag.PDF" style="width:100%; height:500px" />
+                <embed id="iframe1" src="@Url.Action("Illustration", "Home", new {uniqueReferenceId =ViewBag.PDF })" style="width:100%; height:500px" />
                 <div class="clear1"></div>
                 <div class="center">
                     @*<button type="submit" class="btn btn-primary">Back</button>*@
