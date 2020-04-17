@@ -1404,7 +1404,8 @@ namespace InsignisIllustrationGenerator.Controllers
             {
                 TempData["AllowEdit"] = TempData["AllowEdit"];
                 
-                var _list = _context.TempInstitution.Where(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation).ToList();
+                //Dual bank addition during nested case Fixed here
+                var _list = _context.TempInstitution.Where(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId ==partnerEmail.SessionId).ToList();
                 
                 if (_list.Count > 0)
                 {
