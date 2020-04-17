@@ -1584,7 +1584,9 @@ namespace InsignisIllustrationGenerator.Controllers
                     _context.ExcludedInstitutes.Add(inst);
                     _context.SaveChanges();
                 }
-                bool _tempBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName);
+
+                //Session Id filter Case first time Additional banks are comming 
+                bool _tempBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName && x.SessionId == partnerEmail.SessionId);
                 if (_tempBank)
                 {
                     var remov= _context.TempInstitution.Single(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName);
