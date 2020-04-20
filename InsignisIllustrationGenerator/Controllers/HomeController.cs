@@ -809,12 +809,12 @@ namespace InsignisIllustrationGenerator.Controllers
             }
 
             //check if ppt or pdf.................exist..............//
-            if (Directory.Exists(AppSettings.illustrationOutputInternalFolder + "\\" + prefixName))
+            if (Directory.Exists(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName))
             {
-                Directory.Delete(AppSettings.illustrationOutputInternalFolder + "\\" + prefixName, true);
+                Directory.Delete(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName, true);
             }
 
-            Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction powerpointRenderAbstraction = new Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction(AppSettings.illustrationOutputInternalFolder, AppSettings.illustrationOutputPublicFacingFolder);
+            Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction powerpointRenderAbstraction = new Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder"),ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder"));
 
             model.Status = InsignisEnum.IllustrationStatus.Current.ToString();
             model.GenerateDate = DateTime.Now;
@@ -822,7 +822,7 @@ namespace InsignisIllustrationGenerator.Controllers
             SaveIllustraion(model);
 
             Insignis.Asset.Management.Reports.Helper.ExtendedReportContent extendedReportContent = powerpointRenderAbstraction.MergeDataWithPowerPointTemplate(prefixName, textReplacements, templateFile.FullName, requiredOutputNameWithoutExtension, true);
-            string filename = AppSettings.illustrationOutputInternalFolder + "\\" + prefixName + "\\" + requiredOutputNameWithoutExtension + ".pdf";
+            string filename =ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName + "\\" + requiredOutputNameWithoutExtension + ".pdf";
 
             ViewBag.PDF = prefixName;//Illustration(filename);//          extendedReportContent.URI;
             return View();
@@ -1016,17 +1016,17 @@ namespace InsignisIllustrationGenerator.Controllers
 
                 Insignis.Asset.Management.Tools.Sales.SCurve _scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
 
-                _scurve.LoadHeatmap(7, "GBP", AppSettings.preferencesRoot);
+                _scurve.LoadHeatmap(7, "GBP",ConfigurationManager.AppSettings.Get("preferencesRoot"));
                 //scurve.LoadHeatmap(7, model.Currency, AppSettings.preferencesRoot);
 
                 Insignis.Asset.Management.Tools.Sales.SCurveSettings _settings = ProcessPostback(illustrationInfo, false, _scurve.heatmap);
 
-                string _fscsProtectionConfigFile = AppSettings.ClientConfigRoot;// ConfigurationManager.AppSettings["clientConfigRoot"];
+                string _fscsProtectionConfigFile =ConfigurationManager.AppSettings.Get("ClientConfigRoot");// ConfigurationManager.AppSettings["clientConfigRoot"];
                 if (_fscsProtectionConfigFile.EndsWith("\\") == false)
                     _fscsProtectionConfigFile += "\\";
                 _fscsProtectionConfigFile += "FSCSProtection.xml";
 
-                Octavo.Gate.Nabu.Preferences.Manager _preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(AppSettings.preferencesRoot + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
+                Octavo.Gate.Nabu.Preferences.Manager _preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(ConfigurationManager.AppSettings.Get("preferencesRoot") + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
 
                 _preferencesManager.DeletePreferences("Sales.Tools.SCurve.Settings", 1);
 
@@ -1603,17 +1603,17 @@ namespace InsignisIllustrationGenerator.Controllers
 
             Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
 
-            scurve.LoadHeatmap(7, "GBP", AppSettings.preferencesRoot);
+            scurve.LoadHeatmap(7, "GBP",ConfigurationManager.AppSettings.Get("preferencesRoot"));
             //scurve.LoadHeatmap(7, model.Currency, AppSettings.preferencesRoot);
 
             Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
 
-            string fscsProtectionConfigFile = AppSettings.ClientConfigRoot;// ConfigurationManager.AppSettings["clientConfigRoot"];
+            string fscsProtectionConfigFile = ConfigurationManager.AppSettings.Get("ClientConfigRoot");// ConfigurationManager.AppSettings["clientConfigRoot"];
             if (fscsProtectionConfigFile.EndsWith("\\") == false)
                 fscsProtectionConfigFile += "\\";
             fscsProtectionConfigFile += "FSCSProtection.xml";
 
-            Octavo.Gate.Nabu.Preferences.Manager preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(AppSettings.preferencesRoot + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
+            Octavo.Gate.Nabu.Preferences.Manager preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(ConfigurationManager.AppSettings.Get("preferencesRoot") + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
 
             preferencesManager.DeletePreferences("Sales.Tools.SCurve.Settings", 1);
 
