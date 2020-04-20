@@ -25,6 +25,38 @@ namespace InsignisIllustrationGenerator.Manager
             _context = context;
         }
 
+
+        internal void CalculateInterest(IllustrationDetailViewModel model)
+        {
+            model.AnnualGrossInterestEarned = 0;
+            model.TotalDeposit = 0;
+
+            foreach (var investment in model.ProposedPortfolio.ProposedInvestments)
+            {
+                model.AnnualGrossInterestEarned += investment.AnnualInterest;
+                model.TotalDeposit += Convert.ToDouble(investment.DepositSize);
+            }
+
+            model.ProposedPortfolio.AnnualGrossInterestEarned = model.AnnualGrossInterestEarned;
+            model.ProposedPortfolio.TotalDeposited = Convert.ToDecimal(model.TotalDeposit);
+            model.GrossAverageYield = (model.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(model.TotalDeposit)) * 100;
+
+            if (model.TotalDeposit.Value >= 50000 && model.TotalDeposit <= 299999)
+                model.ProposedPortfolio.FeePercentage = 0.25M;
+
+            if (model.TotalDeposit.Value >= 300000 && model.TotalDeposit <= 999999)
+                model.ProposedPortfolio.FeePercentage = 0.20M;
+
+            model.NetAverageYield = (model.GrossAverageYield - model.ProposedPortfolio.FeePercentage);
+
+
+
+            model.ProposedPortfolio.Fee = (model.ProposedPortfolio.TotalDeposited * (decimal)(model.ProposedPortfolio.FeePercentage / 100));
+
+            model.AnnualNetInterestEarned = (model.ProposedPortfolio.AnnualGrossInterestEarned - model.ProposedPortfolio.Fee);
+        }
+
+
         internal bool SaveIllustraionAsync(IllustrationDetailViewModel model)
         {
 

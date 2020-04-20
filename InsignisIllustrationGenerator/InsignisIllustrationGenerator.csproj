@@ -131,6 +131,7 @@
 
   <ItemGroup>
     <Folder Include="InsignisHelpers\" />
+    <Folder Include="dbModel\" />
   </ItemGroup>
 
 </Project>

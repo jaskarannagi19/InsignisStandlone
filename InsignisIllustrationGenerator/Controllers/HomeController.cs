@@ -552,7 +552,7 @@ namespace InsignisIllustrationGenerator.Controllers
             model.ProposedPortfolio = scurve.Process(settings, fscsProtectionConfigFile, institutionInclusion);
 
             //var tempBanks = _context.TempInstitution.Where(x=>x.SessionId == illustrationInfo.SessionId).ToList();
-            
+
             //foreach (var bank in tempBanks)
             //{
             //    Insignis.Asset.Management.Tools.Sales.SCurveOutputRow row = new Insignis.Asset.Management.Tools.Sales.SCurveOutputRow();
@@ -570,34 +570,9 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
             //Check for any saved banks TODO
-            
 
-            model.AnnualGrossInterestEarned = 0;
-            model.TotalDeposit = 0;
 
-            foreach (var investment in model.ProposedPortfolio.ProposedInvestments)
-            {
-                model.AnnualGrossInterestEarned += investment.AnnualInterest;
-                model.TotalDeposit +=Convert.ToDouble(investment.DepositSize);
-            }
-
-            model.ProposedPortfolio.AnnualGrossInterestEarned = model.AnnualGrossInterestEarned;
-            model.ProposedPortfolio.TotalDeposited =Convert.ToDecimal(model.TotalDeposit);
-            model.GrossAverageYield = (model.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(model.TotalDeposit)) * 100;
-
-            if(model.TotalDeposit.Value >= 50000 && model.TotalDeposit <= 299999)
-                model.ProposedPortfolio.FeePercentage = 0.25M;
-
-            if (model.TotalDeposit.Value >= 300000 && model.TotalDeposit <= 999999)
-                model.ProposedPortfolio.FeePercentage = 0.20M;
-
-            model.NetAverageYield = (model.GrossAverageYield - model.ProposedPortfolio.FeePercentage);
-
-            
-
-            model.ProposedPortfolio.Fee = (model.ProposedPortfolio.TotalDeposited * (decimal)(model.ProposedPortfolio.FeePercentage / 100));
-
-            model.AnnualNetInterestEarned = (model.ProposedPortfolio.AnnualGrossInterestEarned - model.ProposedPortfolio.Fee);
+            _illustrationHelper.CalculateInterest(model);
 
 
 
