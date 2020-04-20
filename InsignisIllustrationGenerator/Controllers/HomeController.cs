@@ -399,6 +399,8 @@ namespace InsignisIllustrationGenerator.Controllers
 
         }
 
+        
+
         private void CalculateIllustration(IllustrationDetailViewModel model, Session illustrationInfo)
         {
             model.ProposedPortfolio = null;
@@ -456,9 +458,6 @@ namespace InsignisIllustrationGenerator.Controllers
                 preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, scurveBuilderDeposits);
             }
 
-
-
-
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.SessionId == illustrationInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
 
             foreach (var childern in institutionInclusion.Children)
@@ -468,10 +467,13 @@ namespace InsignisIllustrationGenerator.Controllers
                     childern.Value = "false";
             }
             
-            var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
+            //var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
 
             model.ProposedPortfolio = scurve.Process(settings, fscsProtectionConfigFile, institutionInclusion);
             _illustrationHelper.CalculateInterest(model);
+
+
+
         }
 
         public Insignis.Asset.Management.Tools.Sales.SCurveSettings ProcessPostback(Session sessionData, bool pSkipPostback, Insignis.Asset.Management.Tools.Helper.Heatmap pHeatmap)
@@ -1748,6 +1750,7 @@ namespace InsignisIllustrationGenerator.Controllers
             }
 
             model.TotalDeposit = Convert.ToDouble(total);
+            
             if (includeBank != null && Convert.ToDecimal(updatedAmount) > 0)
             {
 
@@ -1811,9 +1814,6 @@ namespace InsignisIllustrationGenerator.Controllers
             
             HttpContext.Session.SetString("GeneratedPorposals", JsonConvert.SerializeObject(sStore));
             HttpContext.Session.SetString("InputProposal", JsonConvert.SerializeObject(model));
-
-
-
 
             return View("Calculate", model);
 

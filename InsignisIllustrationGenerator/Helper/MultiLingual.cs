@@ -16,7 +16,7 @@ namespace InsignisIllustrationGenerator.Helper
 
         public MultiLingual(string pSystemLanguageName)
         {
-            globalisationAbstraction= new GlobalisationAbstraction(ConfigurationManager.AppSettings.Get("InsignisAM") , Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL,settings.ErrorLog);
+            globalisationAbstraction= new GlobalisationAbstraction(ConfigurationManager.AppSettings.Get("InsignisAM") , Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL, ConfigurationManager.AppSettings.Get("ErrorLog"));
             language = globalisationAbstraction.GetLanguageBySystemName(pSystemLanguageName);
         }
 
