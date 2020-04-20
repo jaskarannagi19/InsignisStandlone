@@ -31,7 +31,7 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
 
-        private AppSettings AppSettings { get; set; }
+        
 
         private MultiLingual multiLingual;
         private readonly BankHelper _bankHelper;
@@ -135,9 +135,8 @@ namespace InsignisIllustrationGenerator.Controllers
         {
             _logger = logger;
             _mapper = mapper;
-            AppSettings = settings.Value;
-            multiLingual = new MultiLingual(AppSettings, "English");
-            financialAbstraction = new FinancialAbstraction(AppSettings.InsignisAM, Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL, ConfigurationManager.AppSettings.Get("errorLog"));
+            multiLingual = new MultiLingual("English");
+            financialAbstraction = new FinancialAbstraction(ConfigurationManager.AppSettings.Get("InsignisAM"), Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL, ConfigurationManager.AppSettings.Get("errorLog"));
             _context = context;
             _bankHelper = new BankHelper(mapper, _context);
             _illustrationHelper = new IllustrationHelper(mapper, _context);
@@ -218,16 +217,7 @@ namespace InsignisIllustrationGenerator.Controllers
             //render view
             return View(model);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> PreviousIllustration(SearchParameterViewModel searchParameter)
-        //{
-
-
-        //    IEnumerable<IllustrationListViewModel> illustrationList = await GetIllustrationListAsync(searchParameter);
-
-        //    return PartialView("_IllustrationList",   illustrationList.ToList());
-
-        //}
+        
 
         public IActionResult PreviousIllustration(SearchParameterViewModel searchParams)
         {
@@ -247,15 +237,6 @@ namespace InsignisIllustrationGenerator.Controllers
         public IActionResult SearchIllustration(SearchParameterViewModel searchParams)
         {
 
-            //check model validation for any empty waitttttttt
-
-            //bool isNull = false;
-            //if (searchParams.AdvisorName == null & searchParams.ClientName == null & searchParams.CompanyName == null
-            //    & searchParams.IllustrationFrom == null & searchParams.IllustrationTo == null & searchParams.IllustrationUniqueReference == null)
-            //{
-            //    isNull = true;
-            //    return Json(new { Error = isNull });
-            //}
             if (!ModelState.IsValid)
             {
                 var errors = new List<string>();
@@ -303,7 +284,7 @@ namespace InsignisIllustrationGenerator.Controllers
             List<int> excludedInstitutes= _context.ExcludedInstitutes.Where(x => x.SessionId == partnerInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
             HttpContext.Session.SetString("excludedInstitutes", JsonConvert.SerializeObject(excludedInstitutes));
 
-            ViewBag.URL = AppSettings.illustrationOutputPublicFacingFolder + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
+            ViewBag.URL = ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder") + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
 
             ViewBag.User = "";
             TempData["PreserverSession"] = true;
@@ -423,19 +404,15 @@ namespace InsignisIllustrationGenerator.Controllers
             model.ProposedPortfolio = null;
 
             Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
-
-            scurve.LoadHeatmap(7, "GBP", AppSettings.preferencesRoot);
-
-
+            scurve.LoadHeatmap(7, "GBP", ConfigurationManager.AppSettings.Get("preferencesRoot"));
             Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
 
-            string fscsProtectionConfigFile = AppSettings.ClientConfigRoot;// ConfigurationManager.AppSettings["clientConfigRoot"];
+            string fscsProtectionConfigFile = ConfigurationManager.AppSettings["clientConfigRoot"];
             if (fscsProtectionConfigFile.EndsWith("\\") == false)
                 fscsProtectionConfigFile += "\\";
             fscsProtectionConfigFile += "FSCSProtection.xml";
 
-            Octavo.Gate.Nabu.Preferences.Manager preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(AppSettings.preferencesRoot + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
-
+            Octavo.Gate.Nabu.Preferences.Manager preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(ConfigurationManager.AppSettings["preferencesRoot"] + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
             preferencesManager.DeletePreferences("Sales.Tools.SCurve.Settings", 1);
 
             Octavo.Gate.Nabu.Preferences.Preference scurveBuilder = preferencesManager.GetPreference("Sales.Tools.SCurve.Builder", 1, "Settings");
@@ -479,7 +456,8 @@ namespace InsignisIllustrationGenerator.Controllers
                 preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, scurveBuilderDeposits);
             }
 
-            //Octavo.Gate.Nabu.Preferences.Preference institutionInclusion = preferencesManager.GetPreference("Sales.Tools.SCurve.Institutions", 1, "Institutions");
+
+
 
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.SessionId == illustrationInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
 
@@ -493,32 +471,7 @@ namespace InsignisIllustrationGenerator.Controllers
             var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
 
             model.ProposedPortfolio = scurve.Process(settings, fscsProtectionConfigFile, institutionInclusion);
-
-            //var tempBanks = _context.TempInstitution.Where(x=>x.SessionId == illustrationInfo.SessionId).ToList();
-
-            //foreach (var bank in tempBanks)
-            //{
-            //    Insignis.Asset.Management.Tools.Sales.SCurveOutputRow row = new Insignis.Asset.Management.Tools.Sales.SCurveOutputRow();
-            //    row.InstitutionName = bank.InstitutionName;
-            //    row.InstitutionID = bank.BankId;
-            //    row.InvestmentTerm = new InvestmentTerm();
-            //    row.InvestmentTerm.TermText = bank.InvestmentTerm;
-            //    row.Rate = bank.Rate;
-            //    row.DepositSize = bank.Amount;
-            //    row.AnnualInterest = ((bank.Rate / 100) * bank.Amount);
-
-            //    //_sStore.ProposedInvestments.Add(row);
-            //    model.ProposedPortfolio.ProposedInvestments.Add(row);
-            //}
-
-
-            //Check for any saved banks TODO
-
-
             _illustrationHelper.CalculateInterest(model);
-
-
-
         }
 
         public Insignis.Asset.Management.Tools.Sales.SCurveSettings ProcessPostback(Session sessionData, bool pSkipPostback, Insignis.Asset.Management.Tools.Helper.Heatmap pHeatmap)

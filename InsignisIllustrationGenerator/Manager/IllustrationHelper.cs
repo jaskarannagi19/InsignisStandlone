@@ -49,8 +49,6 @@ namespace InsignisIllustrationGenerator.Manager
 
             model.NetAverageYield = (model.GrossAverageYield - model.ProposedPortfolio.FeePercentage);
 
-
-
             model.ProposedPortfolio.Fee = (model.ProposedPortfolio.TotalDeposited * (decimal)(model.ProposedPortfolio.FeePercentage / 100));
 
             model.AnnualNetInterestEarned = (model.ProposedPortfolio.AnnualGrossInterestEarned - model.ProposedPortfolio.Fee);
@@ -66,9 +64,6 @@ namespace InsignisIllustrationGenerator.Manager
             if (exits)
             {
                 illustrationDetail = _context.IllustrationDetails.FirstOrDefault(x => x.IllustrationUniqueReference == model.IllustrationUniqueReference);
-
-
-
 
                 //illustrationDetail.AdviserName = model.AdviserName;
                 illustrationDetail.ClientName = model.ClientName;

@@ -2,6 +2,7 @@
 using Octavo.Gate.Nabu.Entities.Globalisation;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,10 +14,9 @@ namespace InsignisIllustrationGenerator.Helper
 
         public Language language;
 
-        public MultiLingual(AppSettings settings, string pSystemLanguageName)
+        public MultiLingual(string pSystemLanguageName)
         {
-            
-            globalisationAbstraction= new GlobalisationAbstraction(settings.InsignisAM, Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL,settings.ErrorLog);
+            globalisationAbstraction= new GlobalisationAbstraction(ConfigurationManager.AppSettings.Get("InsignisAM") , Octavo.Gate.Nabu.Entities.DatabaseType.MSSQL,settings.ErrorLog);
             language = globalisationAbstraction.GetLanguageBySystemName(pSystemLanguageName);
         }
 
