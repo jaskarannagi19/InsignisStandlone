@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="dbModel\**" />
+    <Compile Remove="InsignisHelpers\**" />
+    <Content Remove="dbModel\**" />
+    <Content Remove="InsignisHelpers\**" />
+    <EmbeddedResource Remove="dbModel\**" />
+    <EmbeddedResource Remove="InsignisHelpers\**" />
+    <None Remove="dbModel\**" />
+    <None Remove="InsignisHelpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\Migrations\20200123103711_IllustrationDetail.cs" />
     <Compile Remove="Data\Migrations\20200123103711_IllustrationDetail.Designer.cs" />
     <Compile Remove="Data\Migrations\20200123103818_IllustrationDetail.cs" />
@@ -126,12 +137,6 @@
     <Content Update="app.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="InsignisHelpers\" />
-    <Folder Include="dbModel\" />
   </ItemGroup>
 
 </Project>
