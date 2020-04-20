@@ -425,55 +425,7 @@ namespace InsignisIllustrationGenerator.Controllers
             Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
 
             scurve.LoadHeatmap(7, "GBP", AppSettings.preferencesRoot);
-            //scurve.LoadHeatmap(7, model.Currency, AppSettings.preferencesRoot);
 
-            //Changes here for saved banks in illustrationInfo
-            //if(_context.TempInstitution.Any(x => x.SessionId == illustrationInfo.SessionId)){
-            //    var savedBank = _context.TempInstitution.OrderByDescending(x => x.Id).First(x => x.SessionId == illustrationInfo.SessionId);
-            //    string dbInvestmentTerm = _context.InvestmentTermMapper.First(x => x.InvestmentText == savedBank.InvestmentTerm).InvestmentTerm;
-
-            //    if (dbInvestmentTerm == "Instant Access")
-            //    {
-            //        illustrationInfo.EasyAccess -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-                
-            //    if (dbInvestmentTerm == "One Month")
-            //    {
-            //        illustrationInfo.OneMonth -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-
-            //    if (dbInvestmentTerm == "Three Months")
-            //    {
-            //        illustrationInfo.ThreeMonths -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-                
-            //    if (dbInvestmentTerm == "Six Months")
-            //    {
-            //        illustrationInfo.SixMonths -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-
-            //    if (dbInvestmentTerm == "One Year")
-            //    {
-            //        illustrationInfo.OneYear -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-
-            //    if (dbInvestmentTerm == "Two Years")
-            //    {
-            //        illustrationInfo.TwoYears -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-                
-            //    if (dbInvestmentTerm == "Three Years")
-            //    {
-            //        illustrationInfo.ThreeYearsPlus -= Convert.ToDouble(savedBank.Amount);
-            //        illustrationInfo.TotalDeposit -= Convert.ToDouble(savedBank.Amount);
-            //    }
-            //}
 
             Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
 
@@ -539,15 +491,6 @@ namespace InsignisIllustrationGenerator.Controllers
             }
             
             var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
-
-            
-
-
-
-
-
-
-
 
             model.ProposedPortfolio = scurve.Process(settings, fscsProtectionConfigFile, institutionInclusion);
 
@@ -1258,27 +1201,29 @@ namespace InsignisIllustrationGenerator.Controllers
                     }
                 }
 
-                _model.TotalDeposit = Convert.ToDouble(_total);
+
+                _illustrationHelper.CalculateInterest(_model);
+                //_model.TotalDeposit = Convert.ToDouble(_total);
                 
 
-                _model.AnnualGrossInterestEarned = 0;
-                //Saved bank da rate again gross interest calculate 
+                //_model.AnnualGrossInterestEarned = 0;
+                ////Saved bank da rate again gross interest calculate 
                 
-                foreach (var investment in _model.ProposedPortfolio.ProposedInvestments)
-                {
-                    _model.AnnualGrossInterestEarned += investment.AnnualInterest;
-                }
-                _model.ProposedPortfolio.AnnualGrossInterestEarned = _model.AnnualGrossInterestEarned;
-                //divi
-                _model.GrossAverageYield = (_model.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(_model.TotalDeposit)) * 100;
-                if (_model.TotalDeposit.Value >= 50000 && _model.TotalDeposit <= 299999)
-                    _model.ProposedPortfolio.FeePercentage = 0.25M;
+                //foreach (var investment in _model.ProposedPortfolio.ProposedInvestments)
+                //{
+                //    _model.AnnualGrossInterestEarned += investment.AnnualInterest;
+                //}
+                //_model.ProposedPortfolio.AnnualGrossInterestEarned = _model.AnnualGrossInterestEarned;
+                ////divi
+                //_model.GrossAverageYield = (_model.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(_model.TotalDeposit)) * 100;
+                //if (_model.TotalDeposit.Value >= 50000 && _model.TotalDeposit <= 299999)
+                //    _model.ProposedPortfolio.FeePercentage = 0.25M;
 
-                if (_model.TotalDeposit.Value >= 300000 && _model.TotalDeposit <= 999999)
-                    _model.ProposedPortfolio.FeePercentage = 0.20M;
-                _model.NetAverageYield = (_model.GrossAverageYield - _model.ProposedPortfolio.FeePercentage);
-                _model.ProposedPortfolio.Fee = (Convert.ToDecimal(_model.TotalDeposit) * (decimal)(_model.ProposedPortfolio.FeePercentage / 100));
-                _model.AnnualNetInterestEarned = (_model.ProposedPortfolio.AnnualGrossInterestEarned - _model.ProposedPortfolio.Fee);
+                //if (_model.TotalDeposit.Value >= 300000 && _model.TotalDeposit <= 999999)
+                //    _model.ProposedPortfolio.FeePercentage = 0.20M;
+                //_model.NetAverageYield = (_model.GrossAverageYield - _model.ProposedPortfolio.FeePercentage);
+                //_model.ProposedPortfolio.Fee = (Convert.ToDecimal(_model.TotalDeposit) * (decimal)(_model.ProposedPortfolio.FeePercentage / 100));
+                //_model.AnnualNetInterestEarned = (_model.ProposedPortfolio.AnnualGrossInterestEarned - _model.ProposedPortfolio.Fee);
 
 
                 if (additionData)
