@@ -147,16 +147,10 @@ namespace InsignisIllustrationGenerator.Manager
         }
 
 
-
-
-
-
-
         internal IEnumerable<IllustrationListViewModel> GetIllustrationList(SearchParameterViewModel searchParameter, bool isSuperUser)
         {
 
             var IllustrationDetails = new List<IllustrationDetail>();
-
 
             if (!isSuperUser)
                 IllustrationDetails = _context.IllustrationDetails.Where(x => x.PartnerEmail == searchParameter.PartnerEmail && x.PartnerOrganisation == searchParameter.PartnerOrganisation).Include(x => x.IllustrationProposedPortfolio).OrderByDescending(x => x.GenerateDate).ToList();
@@ -164,7 +158,6 @@ namespace InsignisIllustrationGenerator.Manager
                 IllustrationDetails = _context.IllustrationDetails.Include(x => x.IllustrationProposedPortfolio).OrderByDescending(x => x.GenerateDate).ToList();
 
             searchParameter.IllustrationUniqueReference = string.IsNullOrEmpty(searchParameter.IllustrationUniqueReference) ? "" : searchParameter.IllustrationUniqueReference.ToLower();
-
 
             if (searchParameter.IllustrationFrom != null && searchParameter.IllustrationTo != null) {
                 searchParameter.IllustrationTo = searchParameter.IllustrationTo.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
@@ -223,9 +216,6 @@ namespace InsignisIllustrationGenerator.Manager
                 result.ProposedPortfolio.ProposedInvestments.Add(row);
             }
 
-
-
-
             result.AnnualGrossInterestEarned = 0;
 
             foreach (var investment in result.ProposedPortfolio.ProposedInvestments)
@@ -251,11 +241,6 @@ namespace InsignisIllustrationGenerator.Manager
 
             result.AnnualNetInterestEarned = (result.ProposedPortfolio.AnnualGrossInterestEarned - result.ProposedPortfolio.Fee);
 
-
-
-
-
-
             return result;
         }
 
@@ -266,7 +251,6 @@ namespace InsignisIllustrationGenerator.Manager
             else
                 return Guid.NewGuid();
         }
-
 
         internal int GetNextIllustrationRefernce()
         {
@@ -281,8 +265,6 @@ namespace InsignisIllustrationGenerator.Manager
             int number = Convert.ToInt32(lastReference.Split("-")[2]) + 1;
             return number;
         }
-
-
 
         internal bool UpdateIllustrationStatus(UpdateStatusViewModel model)
         {
