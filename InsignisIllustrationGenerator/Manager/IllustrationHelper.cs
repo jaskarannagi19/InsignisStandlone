@@ -216,30 +216,33 @@ namespace InsignisIllustrationGenerator.Manager
                 result.ProposedPortfolio.ProposedInvestments.Add(row);
             }
 
-            result.AnnualGrossInterestEarned = 0;
 
-            foreach (var investment in result.ProposedPortfolio.ProposedInvestments)
-            {
-                result.AnnualGrossInterestEarned += investment.AnnualInterest;
-            }
+            CalculateInterest(result);
 
-            result.ProposedPortfolio.AnnualGrossInterestEarned = result.AnnualGrossInterestEarned;
+            //result.AnnualGrossInterestEarned = 0;
 
-            result.GrossAverageYield = (result.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(result.TotalDeposit)) * 100;
+            //foreach (var investment in result.ProposedPortfolio.ProposedInvestments)
+            //{
+            //    result.AnnualGrossInterestEarned += investment.AnnualInterest;
+            //}
 
-            if (result.TotalDeposit.Value >= 50000 && result.TotalDeposit <= 299999)
-                result.ProposedPortfolio.FeePercentage = 0.25M;
+            //result.ProposedPortfolio.AnnualGrossInterestEarned = result.AnnualGrossInterestEarned;
 
-            if (result.TotalDeposit.Value >= 300000 && result.TotalDeposit <= 999999)
-                result.ProposedPortfolio.FeePercentage = 0.20M;
+            //result.GrossAverageYield = (result.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(result.TotalDeposit)) * 100;
 
-            result.NetAverageYield = (result.GrossAverageYield - result.ProposedPortfolio.FeePercentage);
+            //if (result.TotalDeposit.Value >= 50000 && result.TotalDeposit <= 299999)
+            //    result.ProposedPortfolio.FeePercentage = 0.25M;
+
+            //if (result.TotalDeposit.Value >= 300000 && result.TotalDeposit <= 999999)
+            //    result.ProposedPortfolio.FeePercentage = 0.20M;
+
+            //result.NetAverageYield = (result.GrossAverageYield - result.ProposedPortfolio.FeePercentage);
 
 
-            result.ProposedPortfolio.TotalDeposited =Convert.ToDecimal(result.TotalDeposit);
-            result.ProposedPortfolio.Fee = (result.ProposedPortfolio.TotalDeposited * (decimal)(result.ProposedPortfolio.FeePercentage / 100));
+            //result.ProposedPortfolio.TotalDeposited =Convert.ToDecimal(result.TotalDeposit);
+            //result.ProposedPortfolio.Fee = (result.ProposedPortfolio.TotalDeposited * (decimal)(result.ProposedPortfolio.FeePercentage / 100));
 
-            result.AnnualNetInterestEarned = (result.ProposedPortfolio.AnnualGrossInterestEarned - result.ProposedPortfolio.Fee);
+            //result.AnnualNetInterestEarned = (result.ProposedPortfolio.AnnualGrossInterestEarned - result.ProposedPortfolio.Fee);
 
             return result;
         }
