@@ -198,7 +198,7 @@ namespace InsignisIllustrationGenerator.Manager
             //map db entity to view model ProposedPortfolio. Investment count is 0 after Mapping
             IllustrationDetailViewModel result = _mapper.Map<IllustrationDetailViewModel>(dbIllustration);
             result.ProposedPortfolio = new Insignis.Asset.Management.Tools.Sales.SCurveOutput();
-            //result.ProposedPortfolio.ProposedInvestments = new List<Insignis.Asset.Management.Tools.Sales.SCurveOutputRow>();
+            
 
 
             foreach (var item in dbIllustration.IllustrationProposedPortfolio)
@@ -218,31 +218,6 @@ namespace InsignisIllustrationGenerator.Manager
 
 
             CalculateInterest(result);
-
-            //result.AnnualGrossInterestEarned = 0;
-
-            //foreach (var investment in result.ProposedPortfolio.ProposedInvestments)
-            //{
-            //    result.AnnualGrossInterestEarned += investment.AnnualInterest;
-            //}
-
-            //result.ProposedPortfolio.AnnualGrossInterestEarned = result.AnnualGrossInterestEarned;
-
-            //result.GrossAverageYield = (result.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(result.TotalDeposit)) * 100;
-
-            //if (result.TotalDeposit.Value >= 50000 && result.TotalDeposit <= 299999)
-            //    result.ProposedPortfolio.FeePercentage = 0.25M;
-
-            //if (result.TotalDeposit.Value >= 300000 && result.TotalDeposit <= 999999)
-            //    result.ProposedPortfolio.FeePercentage = 0.20M;
-
-            //result.NetAverageYield = (result.GrossAverageYield - result.ProposedPortfolio.FeePercentage);
-
-
-            //result.ProposedPortfolio.TotalDeposited =Convert.ToDecimal(result.TotalDeposit);
-            //result.ProposedPortfolio.Fee = (result.ProposedPortfolio.TotalDeposited * (decimal)(result.ProposedPortfolio.FeePercentage / 100));
-
-            //result.AnnualNetInterestEarned = (result.ProposedPortfolio.AnnualGrossInterestEarned - result.ProposedPortfolio.Fee);
 
             return result;
         }

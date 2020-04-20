@@ -1024,68 +1024,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 illustrationInfo.PartnerEmailAddress = partnerEmail.PartnerEmail;
                 IllustrationDetailViewModel _model = new IllustrationDetailViewModel();
 
-                //_model.ProposedPortfolio = null;
-
-
-                //Insignis.Asset.Management.Tools.Sales.SCurve _scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
-
-                //_scurve.LoadHeatmap(7, "GBP",ConfigurationManager.AppSettings.Get("preferencesRoot"));
-                ////scurve.LoadHeatmap(7, model.Currency, AppSettings.preferencesRoot);
-
-                //Insignis.Asset.Management.Tools.Sales.SCurveSettings _settings = ProcessPostback(illustrationInfo, false, _scurve.heatmap);
-
-                //string _fscsProtectionConfigFile =ConfigurationManager.AppSettings.Get("ClientConfigRoot");// ConfigurationManager.AppSettings["clientConfigRoot"];
-                //if (_fscsProtectionConfigFile.EndsWith("\\") == false)
-                //    _fscsProtectionConfigFile += "\\";
-                //_fscsProtectionConfigFile += "FSCSProtection.xml";
-
-                //Octavo.Gate.Nabu.Preferences.Manager _preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(ConfigurationManager.AppSettings.Get("preferencesRoot") + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
-
-                //_preferencesManager.DeletePreferences("Sales.Tools.SCurve.Settings", 1);
-
-                //Octavo.Gate.Nabu.Preferences.Preference _scurveBuilder = _preferencesManager.GetPreference("Sales.Tools.SCurve.Builder", 1, "Settings");
-                //int _availableToHubAccountTypeID = -1;
-                //if (_scurveBuilder != null)
-                //{
-                //    if (_scurveBuilder.GetChildPreference("AvailableTo") != null && _scurveBuilder.GetChildPreference("AvailableTo").Value.Trim().Length > 0)
-                //    {
-                //        try
-                //        {
-                //            _availableToHubAccountTypeID = Convert.ToInt32(_scurveBuilder.GetChildPreference("AvailableTo").Value);
-                //        }
-                //        catch
-                //        {
-                //        }
-                //    }
-                //    else
-                //    {
-                //        _availableToHubAccountTypeID = financialAbstraction.GetAccountTypeByAlias("ACT_PERSONALHUBACCOUNT", (int)multiLingual.language.LanguageID).AccountTypeID.Value;
-                //        _scurveBuilder.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference("AvailableTo", _availableToHubAccountTypeID.ToString()));
-                //    }
-                //}
-                //_preferencesManager.DeletePreferences("Sales.Tools.SCurve.Institutions", 1);
-                //Octavo.Gate.Nabu.Preferences.Preference _institutionInclusion = new Octavo.Gate.Nabu.Preferences.Preference("Institutions", "");
-                //Institution[] _allInstitutions = financialAbstraction.ListInstitutions((int)multiLingual.language.LanguageID);
-                //foreach (Institution institution in _allInstitutions)
-                //{
-                //    if (institution.ShortName.CompareTo("NationalSavingsInvestments") != 0)
-                //        _institutionInclusion.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference(institution.PartyID.ToString(), "true"));
-                //    else
-                //        _institutionInclusion.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference(institution.PartyID.ToString(), "false"));
-                //}
-                //_preferencesManager.SetPreference("Sales.Tools.SCurve.Institutions", 1, _institutionInclusion);
-
-                //_preferencesManager.DeletePreferences("Sales.Tools.SCurve.Properties." + _availableToHubAccountTypeID, 1);
-
-                //Octavo.Gate.Nabu.Preferences.Preference _scurveBuilderDeposits = _preferencesManager.GetPreference("Sales.Tools.SCurve.Builder." + _availableToHubAccountTypeID, 1, "Deposits");
-                //if (_scurveBuilderDeposits != null && _scurveBuilderDeposits.Children.Count > 0)
-                //{
-                //    _scurveBuilderDeposits.Children.Clear();
-                //    _preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + _availableToHubAccountTypeID, 1, _scurveBuilderDeposits);
-                //}
-
-
-
+                
                 Tuple<Octavo.Gate.Nabu.Preferences.Preference, string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> _setting = insignisSettings(illustrationInfo);
 
                 //get list of excluded institutes
@@ -1616,65 +1555,7 @@ namespace InsignisIllustrationGenerator.Controllers
             illustrationInfo.PartnerEmailAddress = partnerEmail.PartnerEmail;
             IllustrationDetailViewModel model = new IllustrationDetailViewModel();
 
-            //model.ProposedPortfolio = null;
-
-            //Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
-
-            //scurve.LoadHeatmap(7, "GBP",ConfigurationManager.AppSettings.Get("preferencesRoot"));
-            ////scurve.LoadHeatmap(7, model.Currency, AppSettings.preferencesRoot);
-
-            //Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
-
-            //string fscsProtectionConfigFile = ConfigurationManager.AppSettings.Get("ClientConfigRoot");// ConfigurationManager.AppSettings["clientConfigRoot"];
-            //if (fscsProtectionConfigFile.EndsWith("\\") == false)
-            //    fscsProtectionConfigFile += "\\";
-            //fscsProtectionConfigFile += "FSCSProtection.xml";
-
-            //Octavo.Gate.Nabu.Preferences.Manager preferencesManager = new Octavo.Gate.Nabu.Preferences.Manager(ConfigurationManager.AppSettings.Get("preferencesRoot") + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerOrganisation) + "\\" + Helper.TextFormatter.RemoveNonAlphaNumericCharacters(illustrationInfo.PartnerEmailAddress));
-
-            //preferencesManager.DeletePreferences("Sales.Tools.SCurve.Settings", 1);
-
-            //Octavo.Gate.Nabu.Preferences.Preference scurveBuilder = preferencesManager.GetPreference("Sales.Tools.SCurve.Builder", 1, "Settings");
-            //int availableToHubAccountTypeID = -1;
-            //if (scurveBuilder != null)
-            //{
-            //    if (scurveBuilder.GetChildPreference("AvailableTo") != null && scurveBuilder.GetChildPreference("AvailableTo").Value.Trim().Length > 0)
-            //    {
-            //        try
-            //        {
-            //            availableToHubAccountTypeID = Convert.ToInt32(scurveBuilder.GetChildPreference("AvailableTo").Value);
-            //        }
-            //        catch
-            //        {
-            //        }
-            //    }
-            //    else
-            //    {
-            //        availableToHubAccountTypeID = financialAbstraction.GetAccountTypeByAlias("ACT_PERSONALHUBACCOUNT", (int)multiLingual.language.LanguageID).AccountTypeID.Value;
-            //        scurveBuilder.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference("AvailableTo", availableToHubAccountTypeID.ToString()));
-            //    }
-            //}
-            //preferencesManager.DeletePreferences("Sales.Tools.SCurve.Institutions", 1);
-            //Octavo.Gate.Nabu.Preferences.Preference institutionInclusion = new Octavo.Gate.Nabu.Preferences.Preference("Institutions", "");
-            //Institution[] allInstitutions = financialAbstraction.ListInstitutions((int)multiLingual.language.LanguageID);
-            //foreach (Institution institution in allInstitutions)
-            //{
-            //    if (institution.ShortName.CompareTo("NationalSavingsInvestments") != 0)
-            //        institutionInclusion.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference(institution.PartyID.ToString(), "true"));
-            //    else
-            //        institutionInclusion.SetChildPreference(new Octavo.Gate.Nabu.Preferences.Preference(institution.PartyID.ToString(), "false"));
-            //}
-            //preferencesManager.SetPreference("Sales.Tools.SCurve.Institutions", 1, institutionInclusion);
-
-            //preferencesManager.DeletePreferences("Sales.Tools.SCurve.Properties." + availableToHubAccountTypeID, 1);
-
-            //Octavo.Gate.Nabu.Preferences.Preference scurveBuilderDeposits = preferencesManager.GetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, "Deposits");
-            //if (scurveBuilderDeposits != null && scurveBuilderDeposits.Children.Count > 0)
-            //{
-            //    scurveBuilderDeposits.Children.Clear();
-            //    preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, scurveBuilderDeposits);
-            //}
-
+            
 
             //get list of excluded institutes
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.ClientReference == partnerEmail.ClientName && x.SessionId == illustrationInfo.SessionId && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation).Select(x => x.InstituteId).ToList();
