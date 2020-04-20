@@ -400,11 +400,9 @@ namespace InsignisIllustrationGenerator.Controllers
         }
 
         
-
-        private void CalculateIllustration(IllustrationDetailViewModel model, Session illustrationInfo)
+        private Tuple<Octavo.Gate.Nabu.Preferences.Preference,string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> settings(Session illustrationInfo)
         {
-            model.ProposedPortfolio = null;
-
+            
             Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
             scurve.LoadHeatmap(7, "GBP", ConfigurationManager.AppSettings.Get("preferencesRoot"));
             Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
@@ -458,9 +456,18 @@ namespace InsignisIllustrationGenerator.Controllers
                 preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, scurveBuilderDeposits);
             }
 
+            return Tuple.Create(institutionInclusion, fscsProtectionConfigFile, settings,scurve);
+
+        }
+
+        private void CalculateIllustration(IllustrationDetailViewModel model, Session illustrationInfo)
+        {
+            model.ProposedPortfolio = null;
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.SessionId == illustrationInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
 
-            foreach (var childern in institutionInclusion.Children)
+            Tuple<Octavo.Gate.Nabu.Preferences.Preference, string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> setting = settings(illustrationInfo);
+            
+            foreach (var childern in setting.Item1.Children)
             {
                 childern.Value = "true";
                 if (excludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
@@ -469,10 +476,8 @@ namespace InsignisIllustrationGenerator.Controllers
             
             //var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
 
-            model.ProposedPortfolio = scurve.Process(settings, fscsProtectionConfigFile, institutionInclusion);
+            model.ProposedPortfolio = setting.Item4.Process(setting.Item3, setting.Item2,setting.Item1);
             _illustrationHelper.CalculateInterest(model);
-
-
 
         }
 
