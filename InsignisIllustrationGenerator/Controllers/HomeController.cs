@@ -1203,29 +1203,7 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                 _illustrationHelper.CalculateInterest(_model);
-                //_model.TotalDeposit = Convert.ToDouble(_total);
                 
-
-                //_model.AnnualGrossInterestEarned = 0;
-                ////Saved bank da rate again gross interest calculate 
-                
-                //foreach (var investment in _model.ProposedPortfolio.ProposedInvestments)
-                //{
-                //    _model.AnnualGrossInterestEarned += investment.AnnualInterest;
-                //}
-                //_model.ProposedPortfolio.AnnualGrossInterestEarned = _model.AnnualGrossInterestEarned;
-                ////divi
-                //_model.GrossAverageYield = (_model.ProposedPortfolio.AnnualGrossInterestEarned / Convert.ToDecimal(_model.TotalDeposit)) * 100;
-                //if (_model.TotalDeposit.Value >= 50000 && _model.TotalDeposit <= 299999)
-                //    _model.ProposedPortfolio.FeePercentage = 0.25M;
-
-                //if (_model.TotalDeposit.Value >= 300000 && _model.TotalDeposit <= 999999)
-                //    _model.ProposedPortfolio.FeePercentage = 0.20M;
-                //_model.NetAverageYield = (_model.GrossAverageYield - _model.ProposedPortfolio.FeePercentage);
-                //_model.ProposedPortfolio.Fee = (Convert.ToDecimal(_model.TotalDeposit) * (decimal)(_model.ProposedPortfolio.FeePercentage / 100));
-                //_model.AnnualNetInterestEarned = (_model.ProposedPortfolio.AnnualGrossInterestEarned - _model.ProposedPortfolio.Fee);
-
-
                 if (additionData)
                 {
 
@@ -1873,28 +1851,8 @@ namespace InsignisIllustrationGenerator.Controllers
 
             }
 
-            model.AnnualGrossInterestEarned = 0;
-            foreach (var investment in model.ProposedPortfolio.ProposedInvestments)
-            {
-                model.AnnualGrossInterestEarned += (investment.DepositSize * Convert.ToDecimal(investment.Rate)/100);
-                
-            }
-
-            model.ProposedPortfolio.AnnualGrossInterestEarned = model.AnnualGrossInterestEarned;
-            //divi
-            model.GrossAverageYield = (model.AnnualGrossInterestEarned /Convert.ToDecimal(model.TotalDeposit)) * 100;
-            if (model.TotalDeposit.Value >= 50000 && model.TotalDeposit <= 299999)
-                model.ProposedPortfolio.FeePercentage = 0.25M;
-
-            if (model.TotalDeposit.Value >= 300000 && model.TotalDeposit <= 999999)
-                model.ProposedPortfolio.FeePercentage = 0.20M;
-            model.NetAverageYield = (model.GrossAverageYield - model.ProposedPortfolio.FeePercentage);
+            _illustrationHelper.CalculateInterest(model);
             
-            model.ProposedPortfolio.Fee = (Convert.ToDecimal(model.TotalDeposit) * (decimal)(model.ProposedPortfolio.FeePercentage / 100));
-            
-            model.AnnualNetInterestEarned = (model.ProposedPortfolio.AnnualGrossInterestEarned - model.ProposedPortfolio.Fee);
-
-
             model.SessionId = illustrationInfo.SessionId;
             model.IllustrationUniqueReference = partnerEmail.IllustrationUniqueReference;
             
