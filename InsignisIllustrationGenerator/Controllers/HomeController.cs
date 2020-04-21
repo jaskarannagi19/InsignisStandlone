@@ -31,7 +31,7 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
 
-        
+
 
         private MultiLingual multiLingual;
         private readonly BankHelper _bankHelper;
@@ -93,7 +93,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 sb.Append(string.Format("{0},", "")).AppendLine(Environment.NewLine);
 
 
-                
+
 
             }
 
@@ -156,7 +156,8 @@ namespace InsignisIllustrationGenerator.Controllers
             HttpContext.Session.Remove("SessionPartner");
             HttpContext.Session.SetString("SessionPartner", JsonConvert.SerializeObject(session));
 
-            if(HttpContext.Session.GetString("excludedInstitutes") != null){
+            if (HttpContext.Session.GetString("excludedInstitutes") != null)
+            {
                 HttpContext.Session.Remove("excludedInstitutes");
             }
             return RedirectToAction(actionid, "Home");
@@ -217,7 +218,7 @@ namespace InsignisIllustrationGenerator.Controllers
             //render view
             return View(model);
         }
-        
+
 
         public IActionResult PreviousIllustration(SearchParameterViewModel searchParams)
         {
@@ -281,10 +282,10 @@ namespace InsignisIllustrationGenerator.Controllers
             HttpContext.Session.Remove("SessionPartner");
             HttpContext.Session.SetString("SessionPartner", JsonConvert.SerializeObject(partnerInfo));
 
-            List<int> excludedInstitutes= _context.ExcludedInstitutes.Where(x => x.SessionId == partnerInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
+            List<int> excludedInstitutes = _context.ExcludedInstitutes.Where(x => x.SessionId == partnerInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
             HttpContext.Session.SetString("excludedInstitutes", JsonConvert.SerializeObject(excludedInstitutes));
 
-            ViewBag.URL = "Illustration?uniqueReferenceId="+ uniqueReferenceId;//ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder") + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
+            ViewBag.URL = "Illustration?uniqueReferenceId=" + uniqueReferenceId;//ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder") + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
 
             ViewBag.User = "";
             TempData["PreserverSession"] = true;
@@ -299,7 +300,7 @@ namespace InsignisIllustrationGenerator.Controllers
              Returns:- View and Errors
              */
 
-            
+
             TempData["error"] = "false";
             TempData["AllowEdit"] = true;
             bool PreserverSession = false;
@@ -312,7 +313,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 TempData["PreserverSession"] = TempData["PreserverSession"];
             }
 
-            
+
             if (!string.IsNullOrEmpty((HttpContext.Session.GetString("SessionPartner"))) && !PreserverSession)
             {
                 illustrationInfo = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("SessionPartner"));
@@ -399,10 +400,10 @@ namespace InsignisIllustrationGenerator.Controllers
 
         }
 
-        
-        public Tuple<Octavo.Gate.Nabu.Preferences.Preference,string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> insignisSettings(Session illustrationInfo)
+
+        public Tuple<Octavo.Gate.Nabu.Preferences.Preference, string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> insignisSettings(Session illustrationInfo)
         {
-            
+
             Insignis.Asset.Management.Tools.Sales.SCurve scurve = new Insignis.Asset.Management.Tools.Sales.SCurve(multiLingual.GetAbstraction(), multiLingual.language);
             scurve.LoadHeatmap(7, "GBP", ConfigurationManager.AppSettings.Get("preferencesRoot"));
             Insignis.Asset.Management.Tools.Sales.SCurveSettings settings = ProcessPostback(illustrationInfo, false, scurve.heatmap);
@@ -456,7 +457,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 preferencesManager.SetPreference("Sales.Tools.SCurve.Builder." + availableToHubAccountTypeID, 1, scurveBuilderDeposits);
             }
 
-            return Tuple.Create(institutionInclusion, fscsProtectionConfigFile, settings,scurve);
+            return Tuple.Create(institutionInclusion, fscsProtectionConfigFile, settings, scurve);
 
         }
 
@@ -466,17 +467,17 @@ namespace InsignisIllustrationGenerator.Controllers
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.SessionId == illustrationInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
 
             Tuple<Octavo.Gate.Nabu.Preferences.Preference, string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> setting = insignisSettings(illustrationInfo);
-            
+
             foreach (var childern in setting.Item1.Children)
             {
                 childern.Value = "true";
                 if (excludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
                     childern.Value = "false";
             }
-            
+
             //var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
 
-            model.ProposedPortfolio = setting.Item4.Process(setting.Item3, setting.Item2,setting.Item1);
+            model.ProposedPortfolio = setting.Item4.Process(setting.Item3, setting.Item2, setting.Item1);
             _illustrationHelper.CalculateInterest(model);
 
         }
@@ -739,7 +740,7 @@ namespace InsignisIllustrationGenerator.Controllers
             //....................................Save Excluded Institutes with unique Id..............................................
 
 
-            bool excludedInstitutes = _context.ExcludedInstitutes.Any(x=>x.SessionId == model.SessionId && x.PartnerEmail == model.PartnerEmail && x.PartnerOrganisation == model.PartnerOrganisation && x.ClientReference == model.ClientName);
+            bool excludedInstitutes = _context.ExcludedInstitutes.Any(x => x.SessionId == model.SessionId && x.PartnerEmail == model.PartnerEmail && x.PartnerOrganisation == model.PartnerOrganisation && x.ClientReference == model.ClientName);
             if (excludedInstitutes)
             {
                 var instList = _context.ExcludedInstitutes.Where(x => x.SessionId == model.SessionId && x.PartnerEmail == model.PartnerEmail && x.PartnerOrganisation == model.PartnerOrganisation && x.ClientReference == model.ClientName).ToList();
@@ -759,6 +760,9 @@ namespace InsignisIllustrationGenerator.Controllers
             model.IllustrationUniqueReference = prefixName;
             string requiredOutputNameWithoutExtension = prefixName + "_CashIllustration";
 
+            if (model.TotalDeposit.Value >= 50000 && model.TotalDeposit <= 299999) { model.ProposedPortfolio.FeePercentage = 0.25M; }
+
+            if (model.TotalDeposit.Value >= 300000 && model.TotalDeposit <= 999999) { model.ProposedPortfolio.FeePercentage = 0.20M; }
 
             List<KeyValuePair<string, string>> textReplacements = new List<KeyValuePair<string, string>>();
 
@@ -821,7 +825,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 Directory.Delete(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName, true);
             }
 
-            Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction powerpointRenderAbstraction = new Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder"),ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder"));
+            Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction powerpointRenderAbstraction = new Insignis.Asset.Management.PowerPoint.Generator.RenderAbstraction(ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder"), ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder"));
 
             model.Status = InsignisEnum.IllustrationStatus.Current.ToString();
             model.GenerateDate = DateTime.Now;
@@ -829,7 +833,7 @@ namespace InsignisIllustrationGenerator.Controllers
             SaveIllustraion(model);
 
             Insignis.Asset.Management.Reports.Helper.ExtendedReportContent extendedReportContent = powerpointRenderAbstraction.MergeDataWithPowerPointTemplate(prefixName, textReplacements, templateFile.FullName, requiredOutputNameWithoutExtension, true);
-            string filename =ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName + "\\" + requiredOutputNameWithoutExtension + ".pdf";
+            string filename = ConfigurationManager.AppSettings.Get("illustrationOutputInternalFolder") + "\\" + prefixName + "\\" + requiredOutputNameWithoutExtension + ".pdf";
 
             ViewBag.PDF = prefixName;//Illustration(filename);//          extendedReportContent.URI;
             return View();
@@ -846,7 +850,7 @@ namespace InsignisIllustrationGenerator.Controllers
              Arguments:-    string includeBank null or on, string amount, string term, string rate, string annualinterest, string clienttype, string previous amount
              Returns:- New portfolio View
              */
-            
+
             var illustrationInfo = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("InputProposal"));
             var partnerEmail = JsonConvert.DeserializeObject<IllustrationDetailViewModel>(HttpContext.Session.GetString("InputProposal"));
 
@@ -1024,13 +1028,13 @@ namespace InsignisIllustrationGenerator.Controllers
                 illustrationInfo.PartnerEmailAddress = partnerEmail.PartnerEmail;
                 IllustrationDetailViewModel _model = new IllustrationDetailViewModel();
 
-                
+
                 Tuple<Octavo.Gate.Nabu.Preferences.Preference, string, Insignis.Asset.Management.Tools.Sales.SCurveSettings, Insignis.Asset.Management.Tools.Sales.SCurve> _setting = insignisSettings(illustrationInfo);
 
                 //get list of excluded institutes
                 var _excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.ClientReference == partnerEmail.ClientName && x.SessionId == illustrationInfo.SessionId && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation).Select(x => x.InstituteId).ToList();
 
-                
+
                 foreach (var childern in _setting.Item1.Children)
                 {
                     if (childern.Name != bankId)
@@ -1040,7 +1044,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 }
 
                 //var _feeMatrix = new FeeMatrix(_fscsProtectionConfigFile + "FeeMatrix.xml");
-                
+
                 _model.ProposedPortfolio = _setting.Item4.Process(_setting.Item3, _setting.Item2, _setting.Item1);
 
 
@@ -1069,8 +1073,8 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                 //check db for any saved bank
-                
-                bool __savedBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId== partnerEmail.SessionId);
+
+                bool __savedBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId == partnerEmail.SessionId);
                 if (__savedBank)
                 {
                     var tempBanks = _context.TempInstitution.Where(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId == partnerEmail.SessionId).ToList();
@@ -1084,13 +1088,13 @@ namespace InsignisIllustrationGenerator.Controllers
                         row.InvestmentTerm.TermText = bank.InvestmentTerm;
                         row.Rate = bank.Rate;
                         row.DepositSize = bank.Amount;
-                        row.AnnualInterest = ((bank.Rate/100) * bank.Amount);
+                        row.AnnualInterest = ((bank.Rate / 100) * bank.Amount);
 
                         _sStore.ProposedInvestments.Add(row);
                         _model.ProposedPortfolio.ProposedInvestments.Add(row);
                     }
                 }
-                
+
 
                 decimal _total = 0;
                 //investment term
@@ -1112,16 +1116,16 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                 _illustrationHelper.CalculateInterest(_model);
-                
+
                 if (additionData)
                 {
 
                     if (_dbInvestment.InvestmentTerm == "Instant Access")
                     {
-                        
+
                         _model.EasyAccess += Convert.ToDouble(updatedAmount);
-                        
-                     
+
+
                     }
                     if (_dbInvestment.InvestmentTerm == "One Month")
                     {
@@ -1134,14 +1138,14 @@ namespace InsignisIllustrationGenerator.Controllers
                     {
 
                         _model.ThreeMonths += Convert.ToDouble(updatedAmount);
-                     
+
 
                     }
                     if (_dbInvestment.InvestmentTerm == "Six Months")
                     {
 
                         _model.SixMonths += Convert.ToDouble(updatedAmount);
-                     
+
 
                     }
                     if (_dbInvestment.InvestmentTerm == "Nine Months")
@@ -1169,10 +1173,10 @@ namespace InsignisIllustrationGenerator.Controllers
             }
             //................................................Update Increase Case END...........................................................................................................
 
-            if ((clientType=="0" && Convert.ToDecimal(updatedAmount)>85000) || (clientType == "1" && Convert.ToDecimal(updatedAmount)>175000))
+            if ((clientType == "0" && Convert.ToDecimal(updatedAmount) > 85000) || (clientType == "1" && Convert.ToDecimal(updatedAmount) > 175000))
             {
                 ModelState.AddModelError("error", "The amount entered exceeds funds protected under the FSCS scheme. Please raise an Illustration Request and a member of the Account Management team will be in touch.");
-                
+
                 TempData["error"] = "true";
 
 
@@ -1183,7 +1187,7 @@ namespace InsignisIllustrationGenerator.Controllers
                 ViewBag.Rate = rate;
                 ViewBag.AnnualInterest = annualInterest;
                 ViewBag.ClientType = clientType;
-                
+
                 SCurveOutput _sStore = new SCurveOutput();
 
                 _sStore = JsonConvert.DeserializeObject<SCurveOutput>(HttpContext.Session.GetString("GeneratedPorposals"));
@@ -1194,7 +1198,7 @@ namespace InsignisIllustrationGenerator.Controllers
 
                 _model.ProposedPortfolio = _mapper.Map(_sStore, _model.ProposedPortfolio);
 
-                return View("Calculate",_model);
+                return View("Calculate", _model);
 
             }
 
@@ -1210,10 +1214,10 @@ namespace InsignisIllustrationGenerator.Controllers
             if (_savedBank)
             {
                 TempData["AllowEdit"] = TempData["AllowEdit"];
-                
+
                 //Dual bank addition during nested case Fixed here
-                var _list = _context.TempInstitution.Where(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId ==partnerEmail.SessionId).ToList();
-                
+                var _list = _context.TempInstitution.Where(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.SessionId == partnerEmail.SessionId).ToList();
+
                 if (_list.Count > 0)
                 {
 
@@ -1226,14 +1230,14 @@ namespace InsignisIllustrationGenerator.Controllers
                         inst.PartnerEmail = partnerEmail.PartnerEmail;
                         inst.PartnerOrganisation = partnerEmail.PartnerOrganisation;
                         inst.InstituteId = Convert.ToInt32(bank.BankId);
-                        
+
                         inst.SessionId = illustrationInfo.SessionId;
                         _context.ExcludedInstitutes.Add(inst);
                         _context.SaveChanges();
                         //HttpContext.Session.SetString("ExcludedInstitution", JsonConvert.SerializeObject(inst));
 
-                        
-                        if(_dbInvestment.InvestmentText != investmentTerm)
+
+                        if (_dbInvestment.InvestmentText != investmentTerm)
                         {
 
 
@@ -1259,14 +1263,14 @@ namespace InsignisIllustrationGenerator.Controllers
                                 whichTerm = "Three Months";
                                 illustrationInfo.TotalDeposit -= Convert.ToDouble(bank.Amount);
                             }
-                            if (_dbInvestment.InvestmentTerm == "Six Months" )
+                            if (_dbInvestment.InvestmentTerm == "Six Months")
                             {
                                 illustrationInfo.SixMonths -= Convert.ToDouble(bank.Amount);
                                 amount = bank.Amount;
                                 whichTerm = "Six Months";
                                 illustrationInfo.TotalDeposit -= Convert.ToDouble(bank.Amount);
                             }
-                            if (_dbInvestment.InvestmentTerm == "Nine Months" )
+                            if (_dbInvestment.InvestmentTerm == "Nine Months")
                             {
                                 illustrationInfo.NineMonths -= Convert.ToDouble(bank.Amount);
                                 amount = bank.Amount;
@@ -1299,10 +1303,10 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                         }
-                        
-                        
-                        
-                        
+
+
+
+
                         if (_dbInvestment.InvestmentTerm == "Instant Access" && _dbInvestment.InvestmentText == investmentTerm)
                         {
                             illustrationInfo.EasyAccess -= Convert.ToDouble(bank.Amount);
@@ -1361,7 +1365,7 @@ namespace InsignisIllustrationGenerator.Controllers
                             illustrationInfo.TotalDeposit -= Convert.ToDouble(bank.Amount);
                         }
 
-                        
+
 
                         sessionVariable = true;
 
@@ -1396,19 +1400,19 @@ namespace InsignisIllustrationGenerator.Controllers
                 bool _tempBank = _context.TempInstitution.Any(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName && x.SessionId == partnerEmail.SessionId);
                 if (_tempBank)
                 {
-                    var remov= _context.TempInstitution.Single(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName);
+                    var remov = _context.TempInstitution.Single(x => x.ClientName == partnerEmail.ClientName && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation && x.InstitutionName == instituteName);
                     _context.TempInstitution.Remove(remov);
                     _context.SaveChanges();
 
-                    
+
                     var dbInvestmentTerm = _context.InvestmentTermMapper.Where(x => x.InvestmentText == investmentTerm).SingleOrDefault();
 
 
-                    if(remov != null && remov.InvestmentTerm == investmentTerm)
+                    if (remov != null && remov.InvestmentTerm == investmentTerm)
                     {
 
                         if (dbInvestmentTerm.InvestmentTerm == "Instant Access")
-                            illustrationInfo.EasyAccess +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.EasyAccess += Convert.ToDouble(updatedAmount);
 
 
                         if (dbInvestmentTerm.InvestmentTerm == "One Month")
@@ -1416,58 +1420,59 @@ namespace InsignisIllustrationGenerator.Controllers
 
 
                         if (dbInvestmentTerm.InvestmentTerm == "Three Months")
-                            illustrationInfo.ThreeMonths +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.ThreeMonths += Convert.ToDouble(updatedAmount);
 
 
                         if (dbInvestmentTerm.InvestmentTerm == "Six Months")
-                            illustrationInfo.SixMonths +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.SixMonths += Convert.ToDouble(updatedAmount);
 
 
                         if (dbInvestmentTerm.InvestmentTerm == "Nine Months")
-                            illustrationInfo.NineMonths +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.NineMonths += Convert.ToDouble(updatedAmount);
 
 
                         if (dbInvestmentTerm.InvestmentTerm == "One Year")
-                            illustrationInfo.OneYear +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.OneYear += Convert.ToDouble(updatedAmount);
 
                         if (dbInvestmentTerm.InvestmentTerm == "Two Years")
-                            illustrationInfo.TwoYears +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.TwoYears += Convert.ToDouble(updatedAmount);
 
                         if (dbInvestmentTerm.InvestmentTerm == "Three Years")
-                            illustrationInfo.ThreeYearsPlus +=  Convert.ToDouble(updatedAmount);
+                            illustrationInfo.ThreeYearsPlus += Convert.ToDouble(updatedAmount);
 
 
                     }
 
-                    if( remov == null) { 
-                    if (dbInvestmentTerm.InvestmentTerm == "Instant Access")
-                        illustrationInfo.EasyAccess += 2 * Convert.ToDouble(updatedAmount);
+                    if (remov == null)
+                    {
+                        if (dbInvestmentTerm.InvestmentTerm == "Instant Access")
+                            illustrationInfo.EasyAccess += 2 * Convert.ToDouble(updatedAmount);
 
 
-                    if (dbInvestmentTerm.InvestmentTerm == "One Month")
-                        illustrationInfo.OneMonth += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "One Month")
+                            illustrationInfo.OneMonth += 2 * Convert.ToDouble(updatedAmount);
 
 
-                    if (dbInvestmentTerm.InvestmentTerm == "Three Months")
-                        illustrationInfo.ThreeMonths += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "Three Months")
+                            illustrationInfo.ThreeMonths += 2 * Convert.ToDouble(updatedAmount);
 
 
-                    if (dbInvestmentTerm.InvestmentTerm == "Six Months")
-                        illustrationInfo.SixMonths += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "Six Months")
+                            illustrationInfo.SixMonths += 2 * Convert.ToDouble(updatedAmount);
 
 
-                    if (dbInvestmentTerm.InvestmentTerm == "Nine Months")
-                        illustrationInfo.NineMonths += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "Nine Months")
+                            illustrationInfo.NineMonths += 2 * Convert.ToDouble(updatedAmount);
 
 
-                    if (dbInvestmentTerm.InvestmentTerm == "One Year")
-                        illustrationInfo.OneYear += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "One Year")
+                            illustrationInfo.OneYear += 2 * Convert.ToDouble(updatedAmount);
 
-                    if (dbInvestmentTerm.InvestmentTerm == "Two Years")
-                        illustrationInfo.TwoYears += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "Two Years")
+                            illustrationInfo.TwoYears += 2 * Convert.ToDouble(updatedAmount);
 
-                    if (dbInvestmentTerm.InvestmentTerm == "Three Years")
-                        illustrationInfo.ThreeYearsPlus += 2 * Convert.ToDouble(updatedAmount);
+                        if (dbInvestmentTerm.InvestmentTerm == "Three Years")
+                            illustrationInfo.ThreeYearsPlus += 2 * Convert.ToDouble(updatedAmount);
 
                     }
                     updatedBanks = false;
@@ -1555,7 +1560,7 @@ namespace InsignisIllustrationGenerator.Controllers
             illustrationInfo.PartnerEmailAddress = partnerEmail.PartnerEmail;
             IllustrationDetailViewModel model = new IllustrationDetailViewModel();
 
-            
+
 
             //get list of excluded institutes
             var excludedInstituteIds = _context.ExcludedInstitutes.Where(x => x.ClientReference == partnerEmail.ClientName && x.SessionId == illustrationInfo.SessionId && x.PartnerEmail == partnerEmail.PartnerEmail && x.PartnerOrganisation == partnerEmail.PartnerOrganisation).Select(x => x.InstituteId).ToList();
@@ -1569,15 +1574,15 @@ namespace InsignisIllustrationGenerator.Controllers
                 if (excludedInstitutesIds.Contains(Convert.ToInt32(childern.Name)))
                     childern.Value = "false";
 
-                if(excludedInstituteIds.Count > 0)
+                if (excludedInstituteIds.Count > 0)
                 {
-                    if(excludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
+                    if (excludedInstituteIds.Contains(Convert.ToInt32(childern.Name)))
                         childern.Value = "false";
                 }
 
             }
 
-//            var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
+            //            var feeMatrix = new FeeMatrix(fscsProtectionConfigFile + "FeeMatrix.xml");
             model.ProposedPortfolio = setting.Item4.Process(setting.Item3, setting.Item2, setting.Item1);
 
 
@@ -1646,7 +1651,7 @@ namespace InsignisIllustrationGenerator.Controllers
             }
 
             model.TotalDeposit = Convert.ToDouble(total);
-            
+
             if (includeBank != null && Convert.ToDecimal(updatedAmount) > 0)
             {
 
@@ -1704,10 +1709,10 @@ namespace InsignisIllustrationGenerator.Controllers
             }
 
             _illustrationHelper.CalculateInterest(model);
-            
+
             model.SessionId = illustrationInfo.SessionId;
             model.IllustrationUniqueReference = partnerEmail.IllustrationUniqueReference;
-            
+
             HttpContext.Session.SetString("GeneratedPorposals", JsonConvert.SerializeObject(sStore));
             HttpContext.Session.SetString("InputProposal", JsonConvert.SerializeObject(model));
 
@@ -1833,7 +1838,7 @@ namespace InsignisIllustrationGenerator.Controllers
              Returns pdf file for illustration with uniqueReferenceId
              */
             string requiredOutputNameWithoutExtension = uniqueReferenceId + "_CashIllustration";
-            string filePath = "Output" + "/" + uniqueReferenceId + "/" +  requiredOutputNameWithoutExtension + ".pdf";
+            string filePath = "Output" + "/" + uniqueReferenceId + "/" + requiredOutputNameWithoutExtension + ".pdf";
 
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
