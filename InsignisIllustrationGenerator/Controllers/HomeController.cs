@@ -1620,7 +1620,7 @@ namespace InsignisIllustrationGenerator.Controllers
                     row.InvestmentTerm.TermText = bank.InvestmentTerm;
                     row.Rate = bank.Rate;
                     row.DepositSize = bank.Amount;
-                    row.AnnualInterest = bank.AnnualInterest;
+                    row.AnnualInterest = bank.Rate * (bank.Amount / 100);   //bank.AnnualInterest;
 
                     sStore.ProposedInvestments.Add(row);
                     model.ProposedPortfolio.ProposedInvestments.Add(row);
