@@ -284,7 +284,7 @@ namespace InsignisIllustrationGenerator.Controllers
             List<int> excludedInstitutes= _context.ExcludedInstitutes.Where(x => x.SessionId == partnerInfo.SessionId && x.IsUpdatedBank == false).Select(x => x.InstituteId).ToList();
             HttpContext.Session.SetString("excludedInstitutes", JsonConvert.SerializeObject(excludedInstitutes));
 
-            ViewBag.URL = ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder") + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
+            ViewBag.URL = "Illustration?uniqueReferenceId="+ uniqueReferenceId;//ConfigurationManager.AppSettings.Get("illustrationOutputPublicFacingFolder") + "/" + uniqueReferenceId + "/" + uniqueReferenceId + "_CashIllustration.pdf";   //todo
 
             ViewBag.User = "";
             TempData["PreserverSession"] = true;

@@ -208,19 +208,6 @@
 
         })
 
-        //$(document).on("click", "#btnSubmit", function () {
-        //    debugger;
-            
-        //    $(document).on("submit", "#editForm", function (response) {
-        //        alert(response);
-        //    })
-        //    $("#editForm").submit(function(){
-        //      alert("Submitted");
-        //    });
-
-        //})
-
-
 
         $(document).on("click", "#bankDetailRow", function () {
             debugger;
@@ -244,7 +231,7 @@
             $("#oldAmount").val(deposit)
 
             $(".field-validation-error").text("");
-
+            $("#customControlAutosizing").prop( "checked", true );
             $('#exampleModal').modal('show');
         });
     });
